@@ -1,36 +1,36 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+🔗 Trimsy - URL Shortener
 
-## Getting Started
+A modern, efficient URL shortener service built with Next.js and MongoDB that provides simple and reliable link shortening without unnecessary tracking or complications.
 
-First, run the development server:
+## ✨ Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **URL Shortening**: Convert long URLs into short, manageable links
+- **Custom Short URLs**: Option to create custom short URL identifiers
+- **MongoDB Integration**: Efficient database storage for URL mappings
+- **Duplicate Prevention**: Prevents creation of duplicate short URLs
+- **Redirect System**: Seamless redirection from short URLs to original destinations
+- **Responsive Design**: Works perfectly on desktop and mobile devices
+- **Simple Interface**: Clean, user-friendly interface for quick link shortening
+
+## 🛠️ Tech Stack
+
+| Technology | Purpose |
+|------------|---------|
+| Next.js 14 | React framework with App Router and API routes |
+| MongoDB | Database for storing URL mappings |
+| Next.js Font | Optimized font loading with local font files |
+| Tailwind CSS | Modern styling and responsive design |
+| TypeScript | Type-safe development |
+
+## 📋 API Endpoints
+
+### POST /api/generate
+Creates a new short URL entry.
+
+**Request Body:**
+```json
+{
+  "url": "https://example.com/long-url",
+  "shorturl": "custom-alias"
+}
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
