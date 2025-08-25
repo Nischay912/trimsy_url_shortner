@@ -20,7 +20,6 @@ A modern, efficient URL shortener service built with Next.js and MongoDB that pr
 | MongoDB | Database for storing URL mappings |
 | Next.js Font | Optimized font loading with local font files |
 | Tailwind CSS | Modern styling and responsive design |
-| TypeScript | Type-safe development |
 
 ## 📋 API Endpoints
 
