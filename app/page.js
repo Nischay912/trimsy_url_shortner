@@ -1,103 +1,63 @@
 import Image from "next/image";
+import Link from "next/link";
+// step16: now we went on google fonts selected poppins and did download all to get zip file , then extracted all and copied the extra bold version of it and pasted in the fonts folder there.
+
+// step17: then we should write the below statement here below ; because : next/font/local is a built-in Next.js feature (not plain CSS) that helps you load fonts directly inside your React component.
+import localFont from "next/font/local";
+
+// step18: next step in importing font in NextJs is to write the below code , here below.
+const poppins = localFont({
+  src: "./fonts/Poppins-ExtraBold.ttf",
+  variable: "--font-poppins",
+  weight: "100 900"
+});
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.js
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    // step3: deleted all pre-written content first from here below.
+    <main>
+      {/* step8: lets create a grid with 2 columns in a section here below ; which creates two equal width columns by default here below. */}
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      {/* step12: lets give the section and thus both the columns to take 50% of viewport height individually here below. */}
+      <section className="grid grid-cols-2 h-[50vh]">
+        {/* step9: lets create a div with paragraphs in them here below. */}
+
+        {/* COLUMN 1 OF GRID */}
+
+        {/* step15: now since its column flexbox justify now works for vertical alignment and vice-versa is for items-centre that does the horizontal alignment now , here below. */}
+        <div className="flex flex-col gap-4 items-center justify-center bg-[rgb(187,253,255)]">
+
+            {/* <p className="text-2xl font-bold ">The best place to shorten your links.</p> */}
+
+            {/* step19: now to use the imported font we will do like done below , here below. */}
+            <p className={`${poppins.className} text-3xl font-bold `}>The best place to shorten your links.</p>
+
+            <p className="px-40 text-center">We are the most simple and reliable link shortener. Unlike others that ask for unnecessary details or track your activity, we focus only on what matters — shortening your links quickly, safely, and without hassle. Sit back, relax, and enjoy seamless link shortening. ✨🚀</p>
+          
+
+          {/* step20: now lets add the buttons that was there in the navbar here too inside a "div" here below. */}
+          <div className='flex gap-3 justify-start'>
+            <Link href="/shorten"><button className='bg-[#90e0ef] text-[#023047] rounded-lg p-3 py-1 font-bold cursor-pointer '>Try Now</button></Link>
+            <Link target="_blank" href="/github"><button className='bg-[#90e0ef] text-[#023047] rounded-lg p-3 py-1 font-bold cursor-pointer '>GitHub</button></Link>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+
+        {/* COLUMN 2 OF GRID */}
+
+        {/* step10: now lets insert an image using Image component here below. */}
+
+        {/* step13: now lets make this image as a flexbox with justify start to be in the start in the column of the grid there. */}
+
+        {/* step14: we now want to fill the column two completely of the grid with the image ; so we set fill as true but if we dont put relative on the div below ; it will fill whole page as the closest parent it fills which is not static positioned and if all are static it fills whole webpage as relative there here below. */}
+        <div className="flex justify-start relative bg-[rgb(187,253,255)]">
+            <Image
+            // step11: always put "/"before the image name here below if it is in public folder.
+              src="/people.png"
+              alt="people"
+              fill={true}
+            />
+        </div>
+      </section>
+    </main>
   );
 }

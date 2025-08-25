@@ -1,0 +1,191 @@
+// step22: we'll use forms in this , so lets make it client component here below.
+"use client"
+
+// step21: lets now make this page for the url shortener here below.
+import React , {Component, useState} from 'react'
+import { ToastContainer, toast , Bounce } from 'react-toastify';
+import Link from 'next/link';
+
+const Shorten = () => {
+    // step23: now lets make the states for the input tags here below.
+    const [url, seturl] = useState("")
+    const [shorturl, setshorturl] = useState("")
+    // step24: also lets make a state named generated here below ; which will become "true" when the url has been generated.
+    // const [generated, setgenerated] = useState(false)
+
+    // step63: lets now not make it true false , but instead use it to display the generated url , here below ; so keep it initially an empty string here below.
+    const [generated, setgenerated] = useState("")
+
+    // step30: now lets define the handleChange function here below , which will run on changing the value of text typed in the input tags there , here below.
+    const handleChange = (e) => {
+        if(e.target.name === "url"){
+            seturl(e.target.value)
+        }
+        if(e.target.name === "shorturl"){
+            setshorturl(e.target.value)
+        }
+    }
+
+    // step53: lets define the generate function now here below.
+    const generate = async () => {
+        // step54: we go on POSTMAN where we had written the raw body and was sending the POST request from there and then we go to </> made in right sidebar and copy the code for JavaScript-Fetch from there and paste here below.
+        const myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+
+            const raw = JSON.stringify({
+            // step55: just change the url and shorturl here below to the variables "url" and "shorturl" here below , which are the values of the input tags for the url and shorturl here below.
+
+            // "url": "http://google.com",
+            // "shorturl": "google"
+            // });
+
+            "url": url,
+            "shorturl": shorturl
+            });
+
+
+            const requestOptions = {
+            method: "POST",
+            headers: myHeaders,
+            body: raw,
+            redirect: "follow"
+            };
+
+            // step56: also remove localhost from here as we want to have the first part of url as we want the response to be given at whatever endpoint we are there currently at , ending in this "/api/generate" like : "http://localhost:3000/api/generate" or "trimsy.vercel.app/api/generate" and so on .. thus dynamically changing the response according to the endpoint we are currently at , here below.
+
+            // fetch("http://localhost:3000/api/generate", requestOptions)
+
+            fetch("/api/generate", requestOptions)
+
+            // step58: also we changed the response returned from POST request to be accepted in json format here below ; thus it Converts server’s response (which is JSON) into JS object.
+            
+            // .then((response) => response.text())
+
+            .then((response) => response.json())
+
+            // step57: also we update the below line to also have an alert telling the message based on the reponse sent by the server , here below : i.e. url already exists or url has been generated successfully ; based on the response from the POST that we created earlier there , here below.
+
+            // .then((result) => console.log(result))
+
+            .then((result) => {
+
+                // step67: we later shifted these inside the if else as we will clear the input tags only if its submitted successsfully there , ese we will not do it , so that user can edit it easily there ; and same for the setgenerated function to generate the url only if its success , so written in else block there , here below.
+                
+
+                // step62: also we make the value of input tags to be empty after generate clicked ,so we use the states to become empty as they only are the ones which represent the value fo teh input tags there i.e. determines what is written in the input tags there , here below.
+
+                // seturl("")
+                // setshorturl("")
+                
+                // step64: and then as soon as the url is generated , we make the generated state to have the new shortened url , here below.
+
+                // step65: so we store the current host which is "localhost:3000" in the env file there and then we add the shorturl to the end of it , here below ; thus it contains the shorteened url with the host name in it here below.
+
+                // step66: we have made it environment variable so that based on the website's host name after deploying it , it gets adapted accordingly dynamically instead of staying harcoded as localhost:300 there too , here below.
+
+                // IMPORTANT : MUST WRITE "_PUBLIC_" TOO HERE AS : If you want an environment variable to be available in the browser (client-side), you must prefix it with NEXT_PUBLIC_ too AND HERE SINCE WE WANT THE HOST NAME LIKE "localhost:300" TO BE VISIBLE ON THE BROWSER CLIENT SIDE USING THE VALUE OF THE ENVIRONMENT VARIABLE , SO WE MUST USE "_PUBLIC_" HERE AS WELL , here below.
+
+                // setgenerated(`${process.env.NEXT_PUBLIC_HOST}/${shorturl}`)
+
+                // console.log(result) : can do this as this is a server Component and will render the console on server terminal and not on the browser terminal there thus , here below.
+
+                // step60: now using the code from documentation of react toasts here below to replace the alert by this react toasts now , here below.
+
+                // alert(result.message)
+
+                // step61: added success or error toast based on the message sent by the server , here below.
+                if(result.message === "URL Already Exists"){
+                    toast.error(result.message + '!', {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: false,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "dark",
+                        transition: Bounce,
+                    });
+                }
+                else{
+                    seturl("")
+                    setshorturl("")
+                    setgenerated(`${process.env.NEXT_PUBLIC_HOST}/${shorturl}`)
+                    toast.success(result.message + '!', {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: false,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "dark",
+                        transition: Bounce,
+
+                    });
+                }
+            })
+            .catch((error) => console.error(error));
+        }
+
+  return (
+    <>
+
+    {/* step59: we now use react toasts instead of alert , so first copy this block of code from their documentation at top of the "return" block here below ; first do the "npm i --save react-toastify" then the import statement on top (INCLUDE BOUNCE IN IMPORT TOO ELSE GIVES ERROR : REMEMBER THIS ALWAYS WHEN IMPORTING THESE REACT TOASTS THERE) */}
+    <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition={Bounce}
+    />
+
+    {/* step26: now lets make the overall div as max width of some "lg" size and then make it come at centre in that width using mx-auto here below. */}
+
+    {/* step28: lets make this also flex col to make the headings button and all to be one below the other too , along with some gap between them , here below. */}
+    <div className='bg-[#BBFDFF] max-w-lg mx-auto my-16 p-8 rounded-lg flex flex-col gap-4'>
+        <h1 className='font-bold text-2xl'>Generate your Shortened URLs Here</h1>
+
+        {/* step27: make it flex col to make the input tags to come one below the other , here below. */}
+        <div className='flex flex-col gap-2'>
+            {/* step25: now lets make it to run a handleChange function on being changed here below. */}
+
+            {/* step26: also added color to be outlined when focused on the input tag here below. */}
+
+            {/* step29: now lets add values to the input classes , which will determine the text typed in the input tags here below. */}
+            <input name="url" value={url} className="px-4 py-2 focus:outline-[#012A4A] bg-white text-[#012A4A] rounded-full" type="text" placeholder='Enter your URL' onChange={handleChange} />
+
+            <input name="shorturl" value={shorturl} className="px-4 py-2 focus:outline-[#012A4A] bg-white text-[#012A4A] rounded-full" type="text" placeholder='Enter the short URL you prefer' onChange={handleChange} />
+
+            {/* step52: on clicking the button , lets runs a function here below. */}
+            <button onClick={generate} className='bg-[#012A4A] text-[#fff] rounded-lg p-3 py-1 font-bold cursor-pointer my-3'>Generate</button>
+        </div>   
+
+        {/* step68: now based on if the generated state is not empty i.e. the else block ran and the setgenerated has made the generated state non-empty , only then we will show the shortened URL stored in the "generated" state now thus here below. */}
+        {generated && 
+
+        // step69: wrapped in react fragment to use multiple HTML element tags in it here below.
+        <>
+            {/* step71: can put a span here below with some styles for better design thus here below. */}
+
+            {/* step72: now lets make a dynamic route so that the shortened URL works too for the user there ; so lets make a dynamic route named [shorturl] , so see the next steps there now. */}
+            <span className='font-bold text-lg'>Your Shortened URL :</span>
+
+            {/* step70: lets make it a link that opens in new tab using _blank and passing the shortened URL itself as the href here below. */}
+            <code>
+                <Link href={generated} target="_blank" className='text-[#012A4A]'>{generated}</Link>
+            </code>
+        </>
+        }
+    </div>
+  </>
+  )
+}
+
+export default Shorten

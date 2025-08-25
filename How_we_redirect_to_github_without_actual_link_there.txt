@@ -1,0 +1,1 @@
+We after doing and creating the app , set the profile link of github to shortner "github" and had href = "/github" , so now /github means the main github page of mine there ; so it works now even with "/github" in the Link href used ther ein navbar and page.js of the home both there , thus now here.
