@@ -176,9 +176,7 @@ const uri = process.env.MONGODB_URI
 ```
 Purpose: Retrieves the MongoDB connection string from environment variables
 
-Why: Keeps sensitive database credentials secure and outside the codebase
-
-Example URI: mongodb+srv://username:password@cluster.mongodb.net/database
+Why: Keeps sensitive database credentials secure and outside the codebase if the URI contains username and password in its uri ther eafter // there or so ; so prevents any such risk there.
 
 3. Connection Options
 ```javascript

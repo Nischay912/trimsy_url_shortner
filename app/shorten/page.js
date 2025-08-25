@@ -26,6 +26,28 @@ const Shorten = () => {
         }
     }
 
+    const [copied, setCopied] = useState(false);
+
+const handleCopy = async () => {
+  try {
+    await navigator.clipboard.writeText(generated);
+    setCopied(true);
+    toast.success("Copied to clipboard!");
+    setTimeout(() => setCopied(false), 1200);
+  } catch (err) {
+    // fallback for very old browsers
+    const ta = document.createElement("textarea");
+    ta.value = generated;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand("copy");
+    document.body.removeChild(ta);
+    setCopied(true);
+    toast.success("Copied to clipboard!");
+    setTimeout(() => setCopied(false), 1200);
+  }
+};
+
     // step53: lets define the generate function now here below.
     const generate = async () => {
         // step54: we go on POSTMAN where we had written the raw body and was sending the POST request from there and then we go to </> made in right sidebar and copy the code for JavaScript-Fetch from there and paste here below.
@@ -181,6 +203,26 @@ const Shorten = () => {
             <code>
                 <Link href={generated} target="_blank" className='text-[#012A4A]'>{generated}</Link>
             </code>
+
+            <button
+        type="button"
+        onClick={handleCopy}
+        aria-label={copied ? "Copied" : "Copy to clipboard"}
+        className="ml-1 inline-flex items-center rounded-md border border-[#012A4A]/20 px-2 py-1 text-sm hover:bg-[#012A4A] hover:text-white transition"
+        title={copied ? "Copied!" : "Copy"}
+      >
+        {/* copy icon (changes to a check when copied) */}
+        {!copied ? (
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="pointer-events-none">
+            <path d="M16 1H4a2 2 0 0 0-2 2v12h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H8V7h11v14z"/>
+          </svg>
+        ) : (
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="pointer-events-none">
+            <path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/>
+          </svg>
+        )}
+      </button>
+    
         </>
         }
     </div>
