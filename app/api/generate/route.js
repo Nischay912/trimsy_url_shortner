@@ -7,8 +7,6 @@
 // import {clientPromise} from "@/lib/mongodb" 
 import clientPromise from "@/lib/mongodb" 
 
-import e from "express";
-
 export async function POST(request) {
 
     // step40: now we store the data coming from the POST request into a object named "body" here below.

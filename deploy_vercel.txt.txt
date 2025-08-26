@@ -1,0 +1,2 @@
+Open Vercel > Login with GitHub > click on search bar > add github account > all repositories > install > select repository > keep all default options there generally there > add the environment variables there as key value pair and press deploy.
+
