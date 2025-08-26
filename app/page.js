@@ -157,7 +157,7 @@ export default function Home() {
               </Link>
 
               <Link href="/about">
-                <button className="bg-white hover:bg-gray-100 text-blue-600 border-2 border-blue-600 rounded-xl px-8 py-3 font-bold cursor-pointer transition-all duration-300 transform hover:-translate-y-1 shadow-lg">
+                <button className="bg-white text-blue-600 border-2 border-blue-600 hover:bg-[#000] hover:text-white hover:border-white rounded-xl px-8 py-3 font-bold cursor-pointer transition-all duration-300 transform hover:-translate-y-1 shadow-lg">
                   Learn More
                 </button>
               </Link>
