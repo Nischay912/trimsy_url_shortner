@@ -1,4 +1,4 @@
-🔗 Trimsy - URL Shortener
+## 🔗 Trimsy - URL Shortener
 
 A modern, efficient URL shortener service built with Next.js and MongoDB that provides simple and reliable link shortening without unnecessary tracking or complications.
 
