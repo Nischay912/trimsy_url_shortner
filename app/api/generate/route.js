@@ -8,7 +8,7 @@
 import clientPromise from "@/lib/mongodb" 
 
 export async function POST(request) {
-
+    try{
     // step40: now we store the data coming from the POST request into a object named "body" here below.
     const body = await request.json();
 
@@ -60,4 +60,12 @@ export async function POST(request) {
     // step47: now we can install mongodb package to use it in the terminal using "npm install mongodb" command there and then run the server and hit the POST request at "localhost:3000/api/generate" in POSTMAN by entering the data there by selecting "body > then raw" there : with the data fields of url and shorturl there and see the response success recieved there > which ensures that the data has been inserted into the database successfully.
 
     // step48: but if someone next writes : url > facebook.com & shorturl > google : it will still push it inot the database there , but we don't want anyone else to use a short url name if its already taken by someone else ; so to fix that lets see the next step above there.
+} 
+catch (err) {
+    console.error("API /generate error:", err); // this shows in Vercel logs
+    return Response.json(
+      { success: false, error: true, message: err.message },
+      { status: 500 }
+    );
+  }
 }

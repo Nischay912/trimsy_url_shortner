@@ -6,4 +6,27 @@ Always do : npm run build > check if build successful and then only we can again
 
 Click on the screen that appears there after successful deployment there > get redirected to the website.
 
-Now , we can go the dashboard back there of our project 
+Can go on deployments > triple dot > redeploy > to deploy with changed github code there.
+
+
+Now , we can go the dashboard back there of our project > and now we will change the environment variables from localhost to our vercel link we got.
+
+So , we click on Domains > environment variables > and now we will edit the environment variables there now.
+--------------------------------------------------------------------------------------------------------
+A cluster in MongoDB Atlas can hold many databases, and each database can have many collections.
+
+Go on MongoDB atlas > which is a cloud database > go on database > create new cluster > go on shared option > select aws > asia select mumbai (should be chosen which is closest to your user) > set cluster name > go on database access > then we can create username and password there to connect with our database then there.
+
+
+Then we can go back in database clusters > click on connect > add current ip address > click ok so that now : 
+Only you / your backend server (the whitelisted IP) can access Atlas and All users’ data goes into the same database and collections > choose connect using  compass as we want to connect with the MongoDB compass there  > then replace <password> there with the password you created for that user in the previous step there > then we can copy that connection string and use it for connecting to the mongodb compass now there , so we can go in compass > click on + near connections there > and then we can save and connect the MongoDB atlas to MongoDB compass there ; now it will be saved as a connection there ; so in this way we can connect multiple clusters to MongoDB compass and once saved we need not remember the username password of each of those clusters there now.
+
+Now whatever collection we'll have in the MongoDB compass can be viewed here on mongodb atlas too now > by going on data services > database > browse collections > collections > can see the document there now and can edit it there only now > and this mongodb atlas is very rare to go down , so no need to worry about that here now.
+
+So, now instead of using MongoDB locally we now can use it on cloud now.
+--------------------------------------------------------------------------------------------------------
+So , now coming back to vercel > go on domains of our project > go on mongodb atlas > and get the connection string of any user you created there using the setps seen above earlier > and then paste that in the value for MONGODB_URI there in environment variables and also update the NEXT_PUBLIC_HOST to : "https://trimsy.vercel.app" and then redeploy the project > and then its done.
+
+---------------------------------------------------------------------------------------------------------
+
+Note that : you can use the compass connection string in local use but when using for deployment here , click on drivers and not compass and choose latest node js version and then copy the connecction string from there.
