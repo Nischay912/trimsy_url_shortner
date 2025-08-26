@@ -16,6 +16,9 @@ const Shorten = () => {
     // step63: lets now not make it true false , but instead use it to display the generated url , here below ; so keep it initially an empty string here below.
     const [generated, setgenerated] = useState("")
 
+    // step133: ccreating state to tell if something has been copied or not , here below ; initially false as nothing has been copied at the beginning yet there thus , here below.
+    const [copied, setCopied] = useState(false)
+
     // step30: now lets define the handleChange function here below , which will run on changing the value of text typed in the input tags there , here below.
     const handleChange = (e) => {
         if(e.target.name === "url"){
@@ -26,27 +29,39 @@ const Shorten = () => {
         }
     }
 
-    const [copied, setCopied] = useState(false);
+    // step134: now lets make the function to handle the copy being done there thus , here below.
 
-const handleCopy = async () => {
-  try {
-    await navigator.clipboard.writeText(generated);
-    setCopied(true);
-    toast.success("Copied to clipboard!");
-    setTimeout(() => setCopied(false), 1200);
-  } catch (err) {
-    // fallback for very old browsers
-    const ta = document.createElement("textarea");
-    ta.value = generated;
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand("copy");
-    document.body.removeChild(ta);
-    setCopied(true);
-    toast.success("Copied to clipboard!");
-    setTimeout(() => setCopied(false), 1200);
-  }
-};
+    // step135: async needed as await will be used inside it to copy to clipboard , because we are using navigator.clipboard.writeText() which is an async function , here below.
+    const handleCopy = async () => {
+      try {
+
+        // step136: we use inuilt function to copy the shorturl stored in "generated" to the clipboard , here below.
+        await navigator.clipboard.writeText(generated);
+
+        // step137: we now set the state "copied" to true to show that something has been copied to the clipboard , here below.
+        setCopied(true);
+
+        // step138: now we make a toast to show that something has been copied to the clipboard , here below.
+        toast.success("Copied to clipboard!", { theme: "dark" });
+
+        // step139: and then we make the setCopied function to set the state "copied" to false after 1.2 seconds , here below ; so that the icon of copied changes back to the original icon , here below.
+        setTimeout(() => setCopied(false), 1200);
+      }
+
+      // step140: error code to handle the error , here below written from documentation of navigator.clipboard here below.
+       catch (err) {
+        // step141: since the "await navigator.clipboard.writeText(generated);" we used is a modern clipboard API , we need to handle the error thrown by it , but it may not be supported by the user's browser , so we need to handle the error thrown by it , here below ; which uses some old method of copying to clipboard , here below.
+        const ta = document.createElement("textarea");
+        ta.value = generated;
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+        setCopied(true);
+        toast.success("Copied to clipboard!", { theme: "dark" });
+        setTimeout(() => setCopied(false), 1200);
+      }
+    };
 
     // step53: lets define the generate function now here below.
     const generate = async () => {
@@ -171,8 +186,10 @@ const handleCopy = async () => {
     {/* step26: now lets make the overall div as max width of some "lg" size and then make it come at centre in that width using mx-auto here below. */}
 
     {/* step28: lets make this also flex col to make the headings button and all to be one below the other too , along with some gap between them , here below. */}
+
+    {/* ADDED "MD" TO HEIGHT AND MARGINTOP AND BOTTOM LATER AS THE FOOTER WAS NOT STICKING AT BOTTOM HERE BELOW IN LARGER DEVICES , BUT HAD NO PROBLEM IN SMALLER DEVICES , SO THAT DONE HERE THUS NOW , HERE BELOW. */}
     <div className='bg-[#BBFDFF] max-w-lg mx-auto my-16 p-8 rounded-lg flex flex-col gap-4'>
-        <h1 className='font-bold text-2xl'>Generate your Shortened URLs Here</h1>
+        <h1 className='font-extrabold text-2xl md:text-4xl text-center hover:scale-110 hover:text-blue-700 transition-transform transform duration-300'>Generate your Shortened URLs</h1>
 
         {/* step27: make it flex col to make the input tags to come one below the other , here below. */}
         <div className='flex flex-col gap-2'>
@@ -181,12 +198,15 @@ const handleCopy = async () => {
             {/* step26: also added color to be outlined when focused on the input tag here below. */}
 
             {/* step29: now lets add values to the input classes , which will determine the text typed in the input tags here below. */}
-            <input name="url" value={url} className="px-4 py-2 focus:outline-[#012A4A] bg-white text-[#012A4A] rounded-full" type="text" placeholder='Enter your URL' onChange={handleChange} />
+            <input name="url" value={url} className=" w-full px-4 py-2 text-sm md:text-base text-[#012A4A]  bg-white rounded-full shadow-sm  border border-transparent focus:outline-none focus:ring-2 focus:ring-[#012A4A] focus:border-transparent  transition-transform transform hover:scale-105" type="text" placeholder='Enter your URL' onChange={handleChange} />
 
-            <input name="shorturl" value={shorturl} className="px-4 py-2 focus:outline-[#012A4A] bg-white text-[#012A4A] rounded-full" type="text" placeholder='Enter the short URL you prefer' onChange={handleChange} />
+          {/* WE ALWAYS USE TRANSFORM WITH TRANSITION-TRANSFORM BECAUSE : transform → actually applies the change (scale-105) AND THEN 
+transition-transform → animates that change. */}
+
+            <input name="shorturl" value={shorturl} className=" w-full px-4 py-2 text-sm md:text-base text-[#012A4A]  bg-white rounded-full shadow-sm  border border-transparent focus:outline-none focus:ring-2 focus:ring-[#012A4A] focus:border-transparent  transition-transform transform hover:scale-105" type="text" placeholder='Enter the short URL you prefer' onChange={handleChange} />
 
             {/* step52: on clicking the button , lets runs a function here below. */}
-            <button onClick={generate} className='bg-[#012A4A] text-[#fff] rounded-lg p-3 py-1 font-bold cursor-pointer my-3'>Generate</button>
+            <button onClick={generate} className='bg-[#012A4A] text-white rounded-lg px-4 py-2 font-bold cursor-pointer my-3 w-full md:w-auto text-sm md:text-base transition-transform transform hover:scale-105 hover:bg-[#003e70]'>Generate</button>
         </div>   
 
         {/* step68: now based on if the generated state is not empty i.e. the else block ran and the setgenerated has made the generated state non-empty , only then we will show the shortened URL stored in the "generated" state now thus here below. */}
@@ -197,31 +217,40 @@ const handleCopy = async () => {
             {/* step71: can put a span here below with some styles for better design thus here below. */}
 
             {/* step72: now lets make a dynamic route so that the shortened URL works too for the user there ; so lets make a dynamic route named [shorturl] , so see the next steps there now. */}
-            <span className='font-bold text-lg'>Your Shortened URL :</span>
+            <span className='font-bold text-md md:text-lg text-center md:text-left'>Your Shortened URL :</span>
 
             {/* step70: lets make it a link that opens in new tab using _blank and passing the shortened URL itself as the href here below. */}
-            <code>
-                <Link href={generated} target="_blank" className='text-[#012A4A]'>{generated}</Link>
+            <div className="flex flex-col md:flex-row items-center gap-2 justify-center md:justify-start">
+            <code className="break-all text-sm md:text-base text-center md:text-left">
+                <Link href={generated} target="_blank" className='text-[#8000ff] hover:text-[#ff00d9]'>{generated}</Link>
             </code>
 
+          {/* step142: now we display the copy icon here below based on the value of the "copied" state , here below. */}
             <button
-        type="button"
-        onClick={handleCopy}
-        aria-label={copied ? "Copied" : "Copy to clipboard"}
-        className="ml-1 inline-flex items-center rounded-md border border-[#012A4A]/20 px-2 py-1 text-sm hover:bg-[#012A4A] hover:text-white transition"
-        title={copied ? "Copied!" : "Copy"}
-      >
-        {/* copy icon (changes to a check when copied) */}
-        {!copied ? (
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="pointer-events-none">
-            <path d="M16 1H4a2 2 0 0 0-2 2v12h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H8V7h11v14z"/>
-          </svg>
-        ) : (
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="pointer-events-none">
-            <path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/>
-          </svg>
-        )}
-      </button>
+              type="button"
+              // step143: so it runs the handleCopy function when clicked , here below.
+              onClick={handleCopy}
+
+              // step144: added aria-label for screen readers that read alouds the text of website ; so when copied is true it reads copied , else read that it is a button which does "copy to the clipboard" there.
+              aria-label={copied ? "Copied" : "Copy to clipboard"}
+              className="mt-2 md:mt-0 inline-flex items-center rounded-md border border-[#012A4A]/20 px-2 py-1 text-sm hover:bg-[#012A4A] hover:text-white transition"
+
+              // step145: we now make the text of the default tooltip that appears there to "copied" when the state "copied" is true and makes it to show "copy" when the state "copied" is false , here below.
+              title={copied ? "Copied!" : "Copy"}
+            >
+
+            {/* step146: now we will show two icons there base don whether the state is tru or false there , using the ternary operator thus , here below. */}
+            {!copied ? (
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="pointer-events-none">
+                <path d="M16 1H4a2 2 0 0 0-2 2v12h2V3h12V1zm3 4H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H8V7h11v14z"/>
+              </svg>
+            ) : (
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" className="pointer-events-none">
+                <path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z"/>
+              </svg>
+            )}
+          </button>
+          </div>
     
         </>
         }

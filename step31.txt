@@ -1,3 +1,4 @@
 Now to create APIs , lets use Postman > collection > click on "+" > rename collection to Trimsy >  all the requests will come here.
 
 Click on + and make a new POST request there for "localhost:3000/api/generate" and then see the next steps now in that endpoint file created here in vs cdoe first.
+
