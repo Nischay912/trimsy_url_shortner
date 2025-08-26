@@ -229,7 +229,7 @@ export default function Home() {
                 </svg>
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Secure & Private</h3>
-              <p className="text-gray-600">We don't track your activity or ask for unnecessary personal information.</p>
+              <p className="text-gray-600">We don&apos;t track your activity or ask for unnecessary personal information.</p>
             </div>
             
             {/* Feature 3 */}

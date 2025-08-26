@@ -127,7 +127,7 @@ const AboutPage = () => {
         <div className="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-2xl shadow-xl p-10 text-center transform transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl">
           <h2 className="text-3xl font-bold text-white mb-4">Get Started Today</h2>
           <p className="text-blue-100 text-lg mb-8 max-w-2xl mx-auto">
-            Join thousands of users who trust Trimsy for shortening their URLs. It's fast, secure, and free.
+            Join thousands of users who trust Trimsy for shortening their URLs. It&apos;s fast, secure, and free.
           </p>
           <button className="bg-white text-blue-600 font-semibold py-3 px-8 rounded-lg hover:bg-blue-50 transition-all duration-300 shadow-md transform hover:-translate-y-1 cursor-pointer">
             Try Trimsy Now

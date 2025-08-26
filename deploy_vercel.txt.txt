@@ -1,2 +1,5 @@
 Open Vercel > Login with GitHub > click on search bar > add github account > all repositories > install > select repository > keep all default options there generally there > add the environment variables there as key value pair and press deploy.
 
+Errors came that we can't use ' apostrophe in sentences but replace all of them with &apos;
+
+Always do : npm run build > check if build successful and then only we can again try deploy on Vercel now there.
