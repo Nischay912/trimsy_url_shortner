@@ -28,5 +28,3 @@ So, now instead of using MongoDB locally we now can use it on cloud now.
 So , now coming back to vercel > go on domains of our project > go on mongodb atlas > and get the connection string of any user you created there using the setps seen above earlier > and then paste that in the value for MONGODB_URI there in environment variables and also update the NEXT_PUBLIC_HOST to : "https://trimsy.vercel.app" and then redeploy the project > and then its done.
 
 ---------------------------------------------------------------------------------------------------------
-
-Note that : you can use the compass connection string in local use but when using for deployment here , click on drivers and not compass and choose latest node js version and then copy the connecction string from there.
